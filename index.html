@@ -125,11 +125,19 @@
       font-size: 15px;
     }
 
-    .pokemon-emoji {
-      margin: 14px 0 4px;
-      font-size: clamp(80px, 20vw, 130px);
-      line-height: 1.5;
-    }
+.pokemon-image-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 14px 0;
+}
+
+.pokemon-image {
+  width: 240px;
+  height: 240px;
+  object-fit: contain;
+  max-width: 100%;
+}
 
     .pokemon-name {
       margin: 0;
@@ -247,6 +255,19 @@
         transition-duration: 0.01ms !important;
       }
     }
+    .pokemon-image-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  min-height: 220px;
+}
+
+.pokemon-image {
+  width: 220px;
+  height: 220px;
+  object-fit: contain;
+}
   </style>
 </head>
 
@@ -280,11 +301,15 @@
     >
       <span class="result-label" id="resultMbti"></span>
 
-      <div class="pokemon-emoji" id="pokemonEmoji"
-           role="img" aria-label="포켓몬을 나타내는 이모지">
-        ⚡
-      </div>
-
+<div class="pokemon-image-box">
+  <img
+    id="pokemonImage"
+    class="pokemon-image"
+    src=""
+    alt="선택한 포켓몬"
+  >
+</div>
+      
       <h2 class="pokemon-name" id="pokemonName"></h2>
       <p class="pokemon-type" id="pokemonType"></p>
 
@@ -385,14 +410,14 @@
         match: "ISFJ",
         matchReason: "과감한 행동력과 세심한 배려가 만나 서로 부족한 부분을 보완할 수 있어."
       },
-      "ESFP": {
-        name: "피카츄",
-        emoji: "⚡",
-        type: "밝고 에너지 넘치는 분위기 메이커",
-        reason: "사람들과 어울리며 즐거운 순간을 만드는 걸 좋아해.\n생기 넘치고 친근한 피카츄처럼 주변에 활력을 줄 수 있어.",
-        match: "ISTJ",
-        matchReason: "즉흥적인 즐거움과 안정적인 계획이 만나 균형 잡힌 시간을 보낼 수 있어."
-      },
+"ESFP": {
+  name: "피카츄",
+  image: "images/pikachu.png",
+  type: "밝고 에너지 넘치는 분위기 메이커",
+  reason: "사람들과 어울리며 즐거운 순간을 만드는 걸 좋아해.\n생기 넘치고 친근한 피카츄처럼 주변에 활력을 줄 수 있어.",
+  match: "ISTJ",
+  matchReason: "즉흥적인 즐거움과 안정적인 계획이 만나 균형 잡힌 시간을 보낼 수 있어."
+},
       "ENFP": {
         name: "토게피",
         emoji: "🥚",
@@ -477,8 +502,10 @@
       document.getElementById("resultMbti").textContent =
         "나의 MBTI · " + type;
 
-      document.getElementById("pokemonEmoji").textContent =
-        data.emoji;
+const image = document.getElementById("pokemonImage");
+
+image.src = data.image;
+image.alt = data.name;
 
       document.getElementById("pokemonName").textContent =
         data.name;
